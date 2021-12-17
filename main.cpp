@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
 
     uint8_t minr = 255, ming = 255, minb = 255, maxr = 0, maxg = 0, maxb = 0;
 
-    #pragma omp parallel for shared(minr, ming, minb, maxr, maxg, maxb, bitmap) schedule(static) num_threads(num_threads)
+    #pragma omp parallel for reduction(min:minr,ming,minb) reduction(max:maxr,maxg,maxb) shared(bitmap) schedule(static) num_threads(num_threads)
     for (int i = 0; i < height * width; ++i) {
         P6_pnm_pixel p{};
         memcpy(&p, bitmap + i * 3, 3);
