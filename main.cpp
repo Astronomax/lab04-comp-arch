@@ -1,10 +1,11 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
+#include <ctime>
 #include <omp.h>
 
 int main(int argc, char *argv[]) {
-    int num_threads = std::stoul(argv[1]);
+    unsigned int num_threads = std::stoul(argv[1]);
 
     std::ifstream f(argv[2],  std::ios::binary|std::ios::ate);
     int length = f.tellg();
