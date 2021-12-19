@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
         o.close();
         std::cout << "Time (" << num_threads << " thread(s)): " << (double)(end - beg) / CLOCKS_PER_SEC * 1000 << " ms\n";
     }
-    else {
+    else if(pnm_type == "P6") {
         int beg = clock();
         uint8_t minr = max_val, ming = max_val, minb = max_val, maxr = 0, maxg = 0, maxb = 0;
         #pragma omp parallel for reduction(min:minr,ming,minb) reduction(max:maxr,maxg,maxb) shared(bitmap) schedule(static) num_threads(num_threads)
@@ -97,5 +97,6 @@ int main(int argc, char *argv[]) {
         o.close();
         std::cout << "Time (" << num_threads << " thread(s)): " << (double)(end - beg) / CLOCKS_PER_SEC * 1000 << " ms\n";
     }
+    else std::cout << "Unknown image type";
     return 0;
 }
