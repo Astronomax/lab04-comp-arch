@@ -6,13 +6,19 @@
 
 int main(int argc, char *argv[]) {
     unsigned int num_threads = std::stoul(argv[1]);
-
-    std::ifstream f(argv[2],  std::ios::binary|std::ios::ate);
-    int length = f.tellg();
-    char *buffer = new char[length];
-    f.seekg(0, std::ios::beg);
-    f.read(buffer, length);
-    f.close();
+    char *buffer;
+    try {
+        std::ifstream f(argv[2], std::ios::binary | std::ios::ate);
+        int length = f.tellg();
+        buffer = new char[length];
+        f.seekg(0, std::ios::beg);
+        f.read(buffer, length);
+        f.close();
+    }
+    catch(std::exception e) {
+        std::cout << "No such file";
+        return 0;
+    }
 
     char *bitmap = strchr(strchr(strchr(buffer, '\n') + 1, '\n') + 1, '\n') + 1;
 
